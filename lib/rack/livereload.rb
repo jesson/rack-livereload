@@ -59,7 +59,7 @@ module Rack
       else
         status, headers, body = result = @app.call(env)
 
-        return result if headers['Content-Type'] and headers['Content-Type']['text/event-stream']
+        return result if headers['Content-Type'] and (headers['Content-Type']['text/event-stream'] || headers['Content-Type'] =~ /^image\//)
 
         body.close if body.respond_to?(:close)
 
